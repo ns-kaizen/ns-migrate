@@ -1,6 +1,6 @@
 import { createConnection, Connection } from 'mysql2/promise'
 import { Schema } from './lib/types'
-import mysql from './lib/mysql'
+import mysql from './lib'
 
 type Credentials = {
 	host: string
