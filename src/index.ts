@@ -23,9 +23,10 @@ const isCredentials = (credentials: any): credentials is Credentials => {
 
 type DBURL = string
 
-export const getSchema = async (credentials: Credentials | Connection, dbName: string) => {
-	const client: Connection = await (async () =>
-		isCredentials(credentials) ? await createConnection(credentials) : credentials)()
+export const getSchema = async (credentials: Credentials | DBURL | Connection, dbName: string) => {
+	const client: Connection = await createConnection(
+		isCredentials(credentials) ? credentials : { uri: credentials as DBURL }
+	)
 
 	return mysql.getSchema(async (sql: string) => {
 		const [rows] = await client.query(sql)
