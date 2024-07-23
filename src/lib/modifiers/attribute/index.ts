@@ -5,6 +5,7 @@ import { attributeRemoveQuery } from './attribute-remove'
 import { attributeRenameQuery } from './attribute-rename'
 import { attributeChangeTypeQuery } from './attribute-change-type'
 import { attributeChangeDefaultQuery } from './attribute-change-default'
+import { attributeChangeGenerationQuery } from './attribute-change-generation'
 import { Priority, Query, isQuery } from '../../utils'
 
 export const getAttributeQueries = (actions: DiffAction[]): Query[] => {
@@ -21,6 +22,8 @@ export const getAttributeQueries = (actions: DiffAction[]): Query[] => {
 					return { priority: Priority.ATTRIBUTE, query: attributeChangeTypeQuery(action) }
 				case 'attribute-change-default':
 					return { priority: Priority.ATTRIBUTE, query: attributeChangeDefaultQuery(action) }
+				case 'attribute-change-generation':
+					return { priority: Priority.ATTRIBUTE, query: attributeChangeGenerationQuery(action) }
 
 				default:
 					return undefined

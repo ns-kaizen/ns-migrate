@@ -50,6 +50,8 @@ export const getSchema = async (query: QueryFn, dbName: string): Promise<Schema>
 								?.defaultValue || null,
 						nullable: !column.notnull,
 						modelId: _ref_table?.id,
+						generated: column.generated,
+						generatedSql: column.expression,
 					}
 
 					return attr

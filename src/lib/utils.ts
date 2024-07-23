@@ -17,9 +17,9 @@ export const camelize = (str: string) => {
 export const Priority = {
 	RELATION_REMOVE: 0,
 	ATTRIBUTE_REMOVE: 1,
-	ATTRIBUTE: 2,
-	MODEL_REMOVE: 3,
-	MODEL: 4,
+	MODEL: 2,
+	ATTRIBUTE: 3,
+	MODEL_REMOVE: 4,
 	RELATION_ADD: 5,
 } as const
 

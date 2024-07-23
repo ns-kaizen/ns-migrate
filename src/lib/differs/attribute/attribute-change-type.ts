@@ -26,7 +26,14 @@ export const diffAttributeChangeType = (originalSchema: Schema, newSchema: Schem
 			const newAttribute = newModel.attributes.find((attribute) => attribute.id === originalAttribute.id)
 
 			// if the attr is gone, it can't be renamed
-			if (!newAttribute) continue
+			if (!newAttribute) {
+				continue
+			}
+
+			// if the attr is generated, then we want to leave it alone
+			if (newAttribute.generated) {
+				continue
+			}
 
 			const originalType = mapAttributeTypeToMySQLType(originalAttribute.type)
 			const newType = mapAttributeTypeToMySQLType(newAttribute.type)

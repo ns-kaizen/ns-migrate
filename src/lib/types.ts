@@ -48,6 +48,8 @@ export type Attribute = {
 	selectable?: boolean
 	order: number
 	nullable: boolean
+	generated: boolean
+	generatedSql: string | null
 	modelId?: string
 }
 
