@@ -15,6 +15,7 @@ export const getSchema = async (query: QueryFn, dbName: string): Promise<Schema>
 
 	const models = tables
 		.filter((x) => x.name !== '_ref')
+		.filter((x) => !!_refs.find((_ref) => _ref.type === 'm' && _ref.name === x.name))
 		.map((table) => {
 			const _ref_table = _refs.find((_ref) => _ref.type === 'm' && _ref.name === table.name)
 
