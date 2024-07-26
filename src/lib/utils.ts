@@ -19,8 +19,9 @@ export const Priority = {
 	ATTRIBUTE_REMOVE: 1,
 	MODEL: 2,
 	ATTRIBUTE: 3,
-	MODEL_REMOVE: 4,
-	RELATION_ADD: 5,
+	MODEL_REORDER: 4,
+	MODEL_REMOVE: 5,
+	RELATION_ADD: 6,
 } as const
 
 export type Query = {

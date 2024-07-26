@@ -17,7 +17,7 @@ export const getModelQueries = (actions: DiffAction[]): Query[] => {
 				case 'model-rename':
 					return { priority: Priority.MODEL, query: modelRenameQuery(action) }
 				case 'model-reorder':
-					return { priority: Priority.MODEL, query: modelReorderQuery(action) }
+					return { priority: Priority.MODEL_REORDER, query: modelReorderQuery(action) }
 
 				default:
 					return undefined

@@ -8,7 +8,7 @@ export const modelReorderQuery = (action: ModelReorderAction) => {
 
 	const lastAttr = sortedAttrs.slice(-1)[0]
 
-	return `
+	const sql = `
 		ALTER TABLE \`${model.tableName}\`
 			${sortedAttrs
 				.map((attribute, index) => {
@@ -26,11 +26,16 @@ export const modelReorderQuery = (action: ModelReorderAction) => {
 				${
 					model.auditDates
 						? `,
-					\`createdAt\` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ${lastAttr ? `AFTER \`${lastAttr.name}\`` : ''},
-					\`updatedAt\` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER \`createdAt\`,
-					\`deletedAt\` DATETIME NULL AFTER \`updatedAt\
-				`
+					CHANGE \`createdAt\` \`createdAt\` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ${
+						lastAttr ? `AFTER \`${lastAttr.name}\`` : ''
+					},
+					CHANGE \`updatedAt\` \`updatedAt\` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER \`createdAt\`,
+					CHANGE \`deletedAt\` \`deletedAt\` DATETIME NULL AFTER \`updatedAt\``
 						: ''
 				};
 	`
+
+	console.log(sql)
+
+	return sql
 }
