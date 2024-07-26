@@ -35,7 +35,5 @@ export const modelReorderQuery = (action: ModelReorderAction) => {
 				};
 	`
 
-	console.log(sql)
-
 	return sql
 }
