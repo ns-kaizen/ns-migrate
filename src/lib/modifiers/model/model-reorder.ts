@@ -14,11 +14,18 @@ export const modelReorderQuery = (action: ModelReorderAction) => {
 				.map((attribute, index) => {
 					const name = attribute.name
 					const type = mapAttributeTypeToMySQLType(attribute.type)
+					const order = index === 0 ? 'FIRST' : `AFTER \`${model.attributes[index - 1]!.name}\``
+
+					if (attribute.generated) {
+						const storage = 'PERSISTENT'
+						const expression = attribute.generatedSql
+
+						return `CHANGE \`${name}\` ${type} GENERATED ALWAYS AS (${expression}) ${storage} ${order}`
+					}
+
 					const nullable = attribute.nullable ? 'NULL' : 'NOT NULL'
 					const def = type !== 'text' && attribute.default ? `DEFAULT ${attribute.default}` : ''
 					const ai = attribute.type === 'a_i' ? 'AUTO_INCREMENT UNIQUE' : ''
-
-					const order = index === 0 ? 'FIRST' : `AFTER \`${model.attributes[index - 1]!.name}\``
 
 					return `CHANGE \`${name}\` \`${name}\` ${type} ${nullable} ${ai} ${def} ${order}`
 				})
