@@ -24,8 +24,16 @@ export const getModelQueries = (actions: DiffAction[]): Query[] => {
 			}
 		})
 		.filter(isQuery)
-		.map((x) => ({
-			query: format(x.query, { language: 'mysql', keywordCase: 'upper' }),
-			priority: x.priority,
-		}))
+		.map((x) => {
+			try {
+				const query = format(x.query, { language: 'mysql', keywordCase: 'upper' })
+				return {
+					query,
+					priority: x.priority,
+				}
+			} catch (e) {
+				console.log(x.query)
+				process.exit(1)
+			}
+		})
 }

@@ -15,7 +15,7 @@ export const modelAddQuery = (action: ModelAddAction) => {
 						const storage = 'PERSISTENT'
 						const expression = attribute.generatedSql
 
-						return `\`${name}\` ${type} GENERATED ALWAYS AS (${expression}) ${storage};`
+						return `\`${name}\` ${type} GENERATED ALWAYS AS (${expression}) ${storage}`
 					} else {
 						const name = attribute.name
 						const type = mapAttributeTypeToMySQLType(attribute.type)

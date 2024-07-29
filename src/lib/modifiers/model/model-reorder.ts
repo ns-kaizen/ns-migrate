@@ -20,7 +20,7 @@ export const modelReorderQuery = (action: ModelReorderAction) => {
 						const storage = 'PERSISTENT'
 						const expression = attribute.generatedSql
 
-						return `CHANGE \`${name}\` ${type} GENERATED ALWAYS AS (${expression}) ${storage} ${order}`
+						return `CHANGE \`${name}\` \`${name}\` ${type} GENERATED ALWAYS AS (${expression}) ${storage} ${order}`
 					}
 
 					const nullable = attribute.nullable ? 'NULL' : 'NOT NULL'
