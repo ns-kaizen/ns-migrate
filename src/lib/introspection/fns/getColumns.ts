@@ -25,7 +25,7 @@ export const getColumns = async (query: QueryFn, dbName: string) => {
 			...row,
 			notnull: row.notnull === 'NO',
 			autoIncrement: row.extra === 'auto_increment',
-			generated: row.extra.includes('GENERATED'),
+			generated: row.extra === 'STORED GENERATED' || row.extra === 'VIRTUAL GENERATED',
 			expression: row.expression,
 		}))
 	)
