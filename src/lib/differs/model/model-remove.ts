@@ -24,7 +24,10 @@ export const diffModelRemove = (originalSchema: Schema, newSchema: Schema) => {
 			return model.id === originalModel.id
 		})
 
+		console.log('newModel', newModel)
+
 		if (!newModel) {
+			console.log('removing model', originalModel.tableName)
 			diffs.push({
 				type: 'model-remove',
 				data: {
