@@ -15,7 +15,7 @@ const validate = z.array(
 
 export const getColumns = async (query: QueryFn, dbName: string) => {
 	const rows = await query(`
-		SELECT COLUMN_NAME as name, TABLE_NAME as tableName, COLUMN_TYPE as type, IS_NULLABLE as notnull, EXTRA as extra, IS_GENERATED as generated, GENERATION_EXPRESSION as expression
+		SELECT COLUMN_NAME as name, TABLE_NAME as tableName, COLUMN_TYPE as type, IS_NULLABLE as notnull, EXTRA as extra, GENERATION_EXPRESSION as expression
 		FROM information_schema.COLUMNS
 		WHERE TABLE_SCHEMA = '${dbName}'
 	`)
@@ -25,7 +25,7 @@ export const getColumns = async (query: QueryFn, dbName: string) => {
 			...row,
 			notnull: row.notnull === 'NO',
 			autoIncrement: row.extra === 'auto_increment',
-			generated: row.generated === 'ALWAYS',
+			generated: row.extra.includes('GENERATED'),
 			expression: row.expression,
 		}))
 	)
