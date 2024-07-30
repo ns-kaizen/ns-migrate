@@ -12,16 +12,10 @@ export const diffModelRemove = (originalSchema: Schema, newSchema: Schema) => {
 
 	for (const originalModel of originalSchema.models) {
 		const newModel = newSchema.models.find((model) => {
-			if (originalModel.tableName === '_email_logs') {
-				console.log('diffModelRemove', originalModel.id, model.name, model.id, model.id === originalModel.id)
-			}
 			return model.id === originalModel.id
 		})
 
-		console.log('newModel', newModel?.tableName)
-
 		if (!newModel) {
-			console.log('removing model', originalModel.tableName)
 			diffs.push({
 				type: 'model-remove',
 				data: {
