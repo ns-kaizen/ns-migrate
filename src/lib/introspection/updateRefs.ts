@@ -1,10 +1,10 @@
 import { QueryFn, RelationType, Schema } from '../types'
 import { createRefTable } from './createRefTable'
 
-export const updateRefs = async (query: QueryFn, schema: Schema) => {
+export const updateRefs = async (query: QueryFn, schema: Schema, clearFirst = true) => {
 	await createRefTable(query)
 
-	await query(`DELETE FROM _ref`)
+	if (clearFirst) await query(`DELETE FROM _ref`)
 
 	for (const model of schema.models) {
 		await query(`

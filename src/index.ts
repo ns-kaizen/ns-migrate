@@ -1,6 +1,6 @@
-import { createConnection, Connection } from 'mysql2/promise'
-import { Schema } from './lib/types'
+import { Connection, createConnection } from 'mysql2/promise'
 import mysql from './lib'
+import { Schema } from './lib/types'
 
 type Credentials = {
 	host: string
@@ -86,6 +86,28 @@ export const migrate = async (credentials: Credentials | DBURL, schema: Schema, 
 	}
 
 	if (!debug) await mysql.updateRefs(query, schema)
+
+	await client.end()
+}
+
+export const writeRefs = async (credentials: Credentials | DBURL, schema: Schema, options: Pick<Options, 'log'>) => {
+	const { log = LogLevel.none } = options
+
+	const client = await createConnection(isCredentials(credentials) ? credentials : { uri: credentials as DBURL })
+
+	const query = async (sql: string) => {
+		if (log === LogLevel.deep) {
+			console.log(sql)
+			console.log(' ')
+		}
+		const [rows] = await client.query(sql)
+		return rows
+	}
+
+	const dbName = isCredentials(credentials) ? credentials.database : credentials.split('/').pop()
+	if (!dbName) return
+
+	await mysql.updateRefs(query, schema)
 
 	await client.end()
 }
