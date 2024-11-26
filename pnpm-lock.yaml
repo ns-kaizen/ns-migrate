@@ -2870,6 +2870,7 @@ snapshots:
       source-map: 0.8.0-beta.0
       sucrase: 3.34.0
       tree-kill: 1.2.2
+    optionalDependencies:
       typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
