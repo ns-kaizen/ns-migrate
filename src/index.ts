@@ -1,6 +1,6 @@
-import { Connection, createConnection } from 'mysql2/promise'
+import { type Connection, createConnection } from 'mysql2/promise'
 import mysql from './lib'
-import { Schema } from './lib/types'
+import type { Schema } from './lib/types'
 
 type Credentials = {
 	host: string
@@ -10,13 +10,18 @@ type Credentials = {
 	password: string
 }
 
-const isCredentials = (credentials: any): credentials is Credentials => {
+const isCredentials = (credentials: unknown): credentials is Credentials => {
 	return (
+		credentials !== null &&
 		typeof credentials === 'object' &&
+		'host' in credentials &&
 		typeof credentials.host === 'string' &&
-		(typeof credentials.port === 'number' || typeof credentials.port === 'undefined') &&
+		('port' in credentials && (typeof credentials.port === 'number' || typeof credentials.port === 'undefined')) &&
+		'database' in credentials &&
 		typeof credentials.database === 'string' &&
+		'user' in credentials &&
 		typeof credentials.user === 'string' &&
+		'password' in credentials &&
 		typeof credentials.password === 'string'
 	)
 }
