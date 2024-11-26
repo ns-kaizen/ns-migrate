@@ -1,4 +1,4 @@
-import { RelationRemoveAction } from '../../differs/relation/relation-remove'
+import type { RelationRemoveAction } from '../../differs/relation/relation-remove'
 
 export const relationRemoveQuery = (action: RelationRemoveAction) => {
 	const { fromTable, name } = action.data
